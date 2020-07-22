@@ -1,0 +1,77 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+    <script>
+        let options = ['ROCK', 'PAPER', 'SCISSORS']
+        let playerSelection, computerSelection, output, numberOfGames;
+        let playerScore = 0;
+        let computerScore = 0;
+
+        function computerPlay() {
+            return options[Math.round(Math.random()*2)] //random integer of 0 - 2 then used as index for options
+        }
+
+        function playRound(playerSelection, computerSelection) {
+            let winningMessage = `You Win! ${playerSelection} beats ${computerSelection}`
+            let losingMessage = `You Lose! ${computerSelection} beats ${playerSelection}`
+            let drawMessage = `You drew with computer!`
+            if (playerSelection != computerSelection) {
+                //rock beats scissor
+                if (playerSelection == options[0]) { //player is rock
+                    if (computerSelection == options[2]) { output = winningMessage }
+                    else {output = losingMessage}
+                }
+                //paper beats rock
+                else if (playerSelection == options[1]) { //player is paper
+                    if (computerSelection == options[0]) { output = winningMessage }
+                    else {output = losingMessage}
+                }
+                //scissor beats paper
+                else if (playerSelection == options[2]) { //player is scissors
+                    if (computerSelection == options[1]) { output = winningMessage }
+                    else {output = losingMessage }
+                }
+            }
+            else {
+                output = drawMessage
+            }
+            
+            return output;
+        
+        
+        }
+
+        function game() {
+            numberOfGames = prompt("How many games would you like to play?")
+            //input verification - must be an integer greater than 0
+            if ((typeof Number(numberOfGames) ==  'number') && (numberOfGames > 0)) {
+                for (let i = 0; i < numberOfGames; i++) {
+                    playerSelection = prompt('Rock, Paper or Scissors?'); //prompt player
+                    playerSelection = playerSelection.toUpperCase()
+                    //input verification - needs to be string, matching 'rock', paper or scissors
+                    if (typeof playerSelection == 'string' && (options.includes(playerSelection))) {
+                        console.log(playRound(playerSelection, computerPlay()))
+                    }
+                    else { 
+                        return "Please enter a valid input."
+                        break;
+                        }
+                }
+            
+            }
+            else { 
+                return "Please enter a valid number." 
+                game()
+            }
+
+        }
+
+        game()
+    </script>
+    
+</body>
+</html>
